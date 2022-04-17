@@ -15,17 +15,6 @@ class StubPublishCommand extends Command
     protected $signature = 'stub:publish {--force : Overwrite any existing files}';
 
     /**
-     * The name of the console command.
-     *
-     * This name is used to identify the command during lazy loading.
-     *
-     * @var string|null
-     *
-     * @deprecated
-     */
-    protected static $defaultName = 'stub:publish';
-
-    /**
      * The console command description.
      *
      * @var string
@@ -45,7 +34,6 @@ class StubPublishCommand extends Command
 
         $files = [
             __DIR__.'/stubs/cast.stub' => $stubsPath.'/cast.stub',
-            __DIR__.'/stubs/cast.inbound.stub' => $stubsPath.'/cast.inbound.stub',
             __DIR__.'/stubs/console.stub' => $stubsPath.'/console.stub',
             __DIR__.'/stubs/event.stub' => $stubsPath.'/event.stub',
             __DIR__.'/stubs/job.queued.stub' => $stubsPath.'/job.queued.stub',
@@ -65,7 +53,6 @@ class StubPublishCommand extends Command
             __DIR__.'/stubs/resource-collection.stub' => $stubsPath.'/resource-collection.stub',
             __DIR__.'/stubs/resource.stub' => $stubsPath.'/resource.stub',
             __DIR__.'/stubs/rule.stub' => $stubsPath.'/rule.stub',
-            __DIR__.'/stubs/scope.stub' => $stubsPath.'/scope.stub',
             __DIR__.'/stubs/test.stub' => $stubsPath.'/test.stub',
             __DIR__.'/stubs/test.unit.stub' => $stubsPath.'/test.unit.stub',
             __DIR__.'/stubs/view-component.stub' => $stubsPath.'/view-component.stub',
