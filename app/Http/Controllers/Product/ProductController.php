@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\{{namespace}};
+namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 
-class {{class}} extends Controller
+class ProductController extends Controller
 {
      public function index(){
         $models = {{Model}}::all();

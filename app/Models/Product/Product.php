@@ -1,10 +1,10 @@
 <?php
-namespace App\Models\{{namespace}};
+namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class {{class}} extends Model
+class Product extends Model
 {
     use HasFactory;
 }

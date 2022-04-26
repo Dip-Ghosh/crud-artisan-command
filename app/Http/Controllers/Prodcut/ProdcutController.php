@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\{{namespace}};
+namespace App\Http\Controllers\Prodcut;
 
 use Illuminate\Http\Request;
 
-class {{class}} extends Controller
+class ProdcutController extends Controller
 {
      public function index(){
         $models = {{Model}}::all();

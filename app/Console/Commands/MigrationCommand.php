@@ -17,13 +17,7 @@ class MigrationCommand extends Command
 {
     protected $name = 'generate:crud';
     protected $description = 'Create a new controller,model & migration at the same time';
-
     protected $files;
-    protected $directory;
-    protected $controller;
-    protected $model;
-    protected $migration;
-    protected $view;
     private $composer;
 
 
@@ -38,9 +32,6 @@ class MigrationCommand extends Command
     public function handle()
     {
         $this->directory = ucwords($this->ask('Which directory ?e.g Product,User,Category'));
-        $this->controller = ucwords($this->ask('What is your controller name?e.g ProductController'));
-        $this->model = ucwords($this->ask('What is your Model name?e.g Product,User,Category'));
-//        $this->migration = ucwords($this->ask('What is your Migration name?e.g create_product_table'));
         $this->fire();
     }
 
@@ -48,74 +39,77 @@ class MigrationCommand extends Command
     {
         $this->makeController();
         $this->makeModel();
+        $this->makeMigration();
+        $this->makeView();
     }
 
     private function makeController()
     {
+        $name = 'controller';
+        $path = $this->getPath($name);
 
-        $path =$this->getPath();
+        $this->checkExists($path, $name);
         $this->makeDirectory($path);
 
         $this->files->put($path, $this->compileControllerStub());
-
         $filename = pathinfo($path, PATHINFO_FILENAME);
 
         $this->line("<info>Created Controller:</info> {$filename}");
-
-        $this->composer->dumpAutoloads();
     }
 
     private function makeModel()
     {
-        $model = $this->model . 'Model';
-        $path =base_path() . '/app/Models'.'/'. $model.'.php';
+        $name = 'model';
+        $path = $this->getPath($name);
 
+        $this->checkExists($path, $name);
         $this->makeDirectory($path);
 
         $this->files->put($path, $this->compileModelStub());
-
         $filename = pathinfo($path, PATHINFO_FILENAME);
+
         $this->line("<info>Created Model:</info> {$filename}");
 
-        $this->composer->dumpAutoloads();
     }
 
     private function makeView()
     {
-        $view = $this->model . 'View';
-        $path =base_path() . '/resources/views/' . $view;
+        $name = 'view';
+        $paths = $this->getPath($name);
 
-        $this->makeDirectory($path);
+        foreach ($paths as $path) {
+            $this->checkExists($path, $name);
+            $this->makeDirectory($path);
+            $this->files->put($path, $this->compileViewStub());
+            $filename = pathinfo($path, PATHINFO_FILENAME);
+            $this->line("<info>Created View:</info> {$filename}");
+        }
 
-        $this->files->put($path, $this->compileMigrationStub());
+//        $this->line("<info>Created View:</info> {$filename}");
 
-        $filename = pathinfo($path, PATHINFO_FILENAME);
-        $this->line("<info>Created Migration:</info> {$filename}");
-
-        $this->composer->dumpAutoloads();
     }
 
     private function makeMigration()
     {
-        $migration = $this->model . 'Migration';
-        $path =base_path() . '/database/migrations'.'/'. $migration.'.php';
+        $name = 'migration';
+        $path = $this->getPath($name);
 
+        $this->checkExists($path, $name);
         $this->makeDirectory($path);
 
         $this->files->put($path, $this->compileMigrationStub());
 
         $filename = pathinfo($path, PATHINFO_FILENAME);
         $this->line("<info>Created Migration:</info> {$filename}");
-
-        $this->composer->dumpAutoloads();
     }
 
     protected function compileControllerStub()
     {
         $stub = $this->files->get(__DIR__ . '/stubs/Controller.stub');
+        $name = 'controller';
 
-        $this->replaceClassName($stub)
-             ->replaceNameSpace($stub);
+        $this->replaceClassName($stub, $name)
+            ->replaceNameSpace($stub);
 
         return $stub;
     }
@@ -125,36 +119,38 @@ class MigrationCommand extends Command
         $stub = $this->files->get(__DIR__ . '/stubs/Model.stub');
 
         $this->replaceClassName($stub)
-             ->replaceNameSpace($stub);
+            ->replaceNameSpace($stub);
 
         return $stub;
     }
 
     protected function compileMigrationStub()
     {
-        $stub = $this->files->get(__DIR__ . '/stubs/Controller.stub');
+        $stub = $this->files->get(__DIR__ . '/stubs/migration.stub');
 
         $this->replaceClassName($stub)
-             ->replaceNameSpace($stub);
+            ->replaceNameSpace($stub);
 
         return $stub;
     }
 
-    protected function getPath()
+    protected function compileViewStub()
     {
-        return base_path() . '/app/Http/Controllers/'.$this->directory.'/' . $this->controller . 'Controller.php';
+        $stub = $this->files->get(__DIR__ . '/stubs/view/create.blade.stub');
+        $stub = $this->files->get(__DIR__ . '/stubs/view/edit.blade.stub');
+        $stub = $this->files->get(__DIR__ . '/stubs/view/list.blade.stub');
+
+        return $stub;
+
     }
 
-    protected function makeDirectory($path)
+    protected function replaceClassName(&$stub, $name = null)
     {
-        if (!$this->files->isDirectory(dirname($path))) {
-            $this->files->makeDirectory(dirname($path), 0777, true, true);
+
+        $className = ucwords($this->directory);
+        if ($name === 'controller') {
+            $className = $className . 'Controller';
         }
-    }
-
-    protected function replaceClassName(&$stub)
-    {
-        $className = ucwords($this->controller);
 
         $stub = str_replace('{{class}}', $className, $stub);
 
@@ -170,6 +166,52 @@ class MigrationCommand extends Command
         return $this;
     }
 
+    protected function getPath($name)
+    {
+        if ($name === 'controller') {
+            return base_path() . '/app/Http/Controllers/' . $this->directory . '/' . $this->directory . 'Controller.php';
+        }
+        if ($name === 'model') {
+            return base_path() . '/app/Models/' . $this->directory . '/' . $this->directory . '.php';
+        }
+        if ($name === 'view') {
+            $basePath = base_path() . '/resources/views/';
+            $path['create'] = $basePath . $this->directory . '/create.blade.stub';
+            $path['list'] = $basePath . $this->directory . '/list.blade.stub';
+            $path['edit'] = $basePath . $this->directory . '/edit.blade.stub';
+            return $path;
+        }
+        if ($name === 'migration') {
+            return base_path() . '/database/migrations/' . date('Y_m_d_His') . '_' . 'create_' . $this->directory . '_table.php';
+        }
+
+    }
+
+    protected function makeDirectory($path)
+    {
+        if (!$this->files->isDirectory(dirname($path))) {
+            $this->files->makeDirectory(dirname($path), 0777, true, true);
+        }
+    }
+
+    protected function checkExists($path, $name)
+    {
+        if ($name === 'controller' && $this->files->exists($path)) {
+            return $this->error('Controller already exists!');
+        }
+        if ($name === 'model' && $this->files->exists($path)) {
+            return $this->error('Model already exists!');
+        }
+        if ($name === 'view' && $this->files->exists($path)) {
+            return $this->error('View already exists!');
+        }
+        if ($name === 'migration' && $this->files->exists($path)) {
+            return $this->error('Migration already exists!');
+        }
+
+    }
+
+
     protected function getArguments()
     {
         return [];
@@ -178,11 +220,7 @@ class MigrationCommand extends Command
     protected function getOptions()
     {
         return [
-            ['name', null, InputOption::VALUE_OPTIONAL, 'name =', null],
-            ['controller', null, InputOption::VALUE_OPTIONAL, 'controller =', null],
-            ['model', null, InputOption::VALUE_OPTIONAL, 'model =', null],
-            ['view', null, InputOption::VALUE_OPTIONAL, 'view =', null],
-            ['migration', null, InputOption::VALUE_OPTIONAL, ' migration = ', null],
+            ['name', null, InputOption::VALUE_OPTIONAL, 'name =', null]
         ];
     }
 
