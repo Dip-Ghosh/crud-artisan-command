@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Models\{{namespace}};
+
+use Illuminate\Database\Eloquent\Model;
+
+class {{model}} extends Model
+{
+
+    protected $table = '{{table}}';
+
+
+}

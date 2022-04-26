@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Http\Controllers\{{namespace}};
+
+use Illuminate\Http\Request;
+
+class {{class}} extends Controller
+{
+     public function index(){
+        Product = Product::all();
+        return view('{{ view }}', compact('Product'));
+    }
+
+
+}
