@@ -170,6 +170,7 @@ class ComposerStaticInit15b6846a1c9309d6d7db91861b84b138
             'DeepCopy\\' => 9,
             'Database\\Seeders\\' => 17,
             'Database\\Factories\\' => 19,
+            'DIP\\TimeZones\\' => 14,
             'DASPRiD\\Enum\\' => 13,
         ),
         'C' => 
@@ -517,6 +518,10 @@ class ComposerStaticInit15b6846a1c9309d6d7db91861b84b138
         'Database\\Factories\\' => 
         array (
             0 => __DIR__ . '/../..' . '/database/factories',
+        ),
+        'DIP\\TimeZones\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dip/timezones/src',
         ),
         'DASPRiD\\Enum\\' => 
         array (

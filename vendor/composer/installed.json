@@ -308,6 +308,46 @@
             "install-path": "../dflydev/dot-access-data"
         },
         {
+            "name": "dip/timezones",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dip-Ghosh/timezones-show-package.git",
+                "reference": "9cabc2bd2ce5b202788750c45c249f5dc6609741"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dip-Ghosh/timezones-show-package/zipball/9cabc2bd2ce5b202788750c45c249f5dc6609741",
+                "reference": "9cabc2bd2ce5b202788750c45c249f5dc6609741",
+                "shasum": ""
+            },
+            "time": "2022-04-27T05:26:19+00:00",
+            "default-branch": true,
+            "type": "lirary",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "DIP\\TimeZones\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dip Ghosh"
+                }
+            ],
+            "description": "Sample laravel package to timezones",
+            "support": {
+                "issues": "https://github.com/Dip-Ghosh/timezones-show-package/issues",
+                "source": "https://github.com/Dip-Ghosh/timezones-show-package/tree/main"
+            },
+            "install-path": "../dip/timezones"
+        },
+        {
             "name": "doctrine/inflector",
             "version": "2.0.4",
             "version_normalized": "2.0.4.0",

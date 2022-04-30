@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55b5192d969cdc4fa1d55beebbae31d5",
+    "content-hash": "d05a552ebe4fb7f27ec9dcdcc3548696",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -297,6 +297,43 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.1"
             },
             "time": "2021-08-13T13:06:58+00:00"
+        },
+        {
+            "name": "dip/timezones",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dip-Ghosh/timezones-show-package.git",
+                "reference": "9cabc2bd2ce5b202788750c45c249f5dc6609741"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dip-Ghosh/timezones-show-package/zipball/9cabc2bd2ce5b202788750c45c249f5dc6609741",
+                "reference": "9cabc2bd2ce5b202788750c45c249f5dc6609741",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "lirary",
+            "autoload": {
+                "psr-4": {
+                    "DIP\\TimeZones\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dip Ghosh"
+                }
+            ],
+            "description": "Sample laravel package to timezones",
+            "support": {
+                "issues": "https://github.com/Dip-Ghosh/timezones-show-package/issues",
+                "source": "https://github.com/Dip-Ghosh/timezones-show-package/tree/main"
+            },
+            "time": "2022-04-27T05:26:19+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -8434,7 +8471,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "dip/timezones": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

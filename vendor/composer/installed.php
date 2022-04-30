@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c59ec71f9fb5a2923a88a185bbb14f2eb1cf028e',
+        'reference' => '5b55b6ddb27ff6b6dd2ea7e47fa24ca04cb6f5f7',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -65,6 +65,17 @@
             'install_path' => __DIR__ . '/../dflydev/dot-access-data',
             'aliases' => array(),
             'reference' => '0992cc19268b259a39e86f296da5f0677841f42c',
+            'dev_requirement' => false,
+        ),
+        'dip/timezones' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'lirary',
+            'install_path' => __DIR__ . '/../dip/timezones',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => '9cabc2bd2ce5b202788750c45c249f5dc6609741',
             'dev_requirement' => false,
         ),
         'doctrine/inflector' => array(
@@ -454,7 +465,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c59ec71f9fb5a2923a88a185bbb14f2eb1cf028e',
+            'reference' => '5b55b6ddb27ff6b6dd2ea7e47fa24ca04cb6f5f7',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
